@@ -6,23 +6,28 @@ body{
 
 /* HEADER */
 header{
+    background-color:#1f3b6d;
+    color:white;
     display:flex;
     flex-wrap:wrap;
+    align-items:center;
     justify-content:center;
     text-align:center;
     padding:10px;
-    background:#1f3b6d;
-    color:white;
     position:relative;
 }
 
-.logo-izq, .logo-der{
+.logo-izq{
     width:50px;
     position:absolute;
+    left:10px;
 }
 
-.logo-izq{ left:10px; }
-.logo-der{ right:10px; }
+.logo-der{
+    width:50px;
+    position:absolute;
+    right:10px;
+}
 
 .texto-header{
     width:100%;
@@ -40,11 +45,16 @@ header{
 
 /* CARD */
 .card{
-    background:white;
+    background:#fff;
     padding:20px;
     border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
     width:100%;
     max-width:400px;
+
+    display:flex;
+    flex-direction:column;
 }
 
 /* INPUT */
@@ -52,6 +62,9 @@ input{
     width:100%;
     padding:10px;
     margin:8px 0;
+    border-radius:20px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
 }
 
 /* BOTÓN */
@@ -59,12 +72,13 @@ button{
     width:100%;
     padding:12px;
     border:none;
-    border-radius:20px;
+    border-radius:25px;
     background:#88A0BF;
     font-size:16px;
+    cursor:pointer;
 }
 
-/* ANIMACIÓN CELULAR */
+/* ANIMACIÓN PARA CELULAR */
 button:active{
     transform:scale(0.95);
 }
@@ -74,17 +88,57 @@ button:active{
     text-align:left;
 }
 
+.pregunta p{
+    font-size:16px;
+    font-weight:bold;
+}
+
+/* OPCIONES */
 .opcion{
     display:flex;
     align-items:center;
     gap:10px;
+    padding:12px;
     margin:10px 0;
-    background:#f0f4f8;
-    padding:10px;
     border-radius:10px;
+    background:#f0f4f8;
 }
 
 .opcion input{
     width:18px;
     height:18px;
+}
+
+/* BARRA */
+.barra{
+    width:100%;
+    height:10px;
+    background:#ddd;
+    border-radius:10px;
+    margin-bottom:15px;
+    overflow:hidden;
+    display:none;
+}
+
+#progreso{
+    height:100%;
+    width:0%;
+    background:#4facfe;
+}
+
+/* RESPONSIVE */
+@media (max-width:600px){
+
+    .logo-izq, .logo-der{
+        width:45px;
+    }
+
+    .texto-header h1{
+        font-size:16px;
+    }
+
+    .texto-header h2{
+        font-size:12px;
+    }
+
 }
