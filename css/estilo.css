@@ -69,22 +69,31 @@ button:active{
     transform:scale(0.95);
 }
 
-/* PREGUNTAS */
 .pregunta{
     text-align:left;
+    margin-bottom:15px;
 }
 
+/* OPCIONES */
 .opcion{
     display:flex;
     align-items:center;
     gap:10px;
+    padding:12px;
     margin:10px 0;
-    background:#f0f4f8;
-    padding:10px;
     border-radius:10px;
+    background:#f0f4f8;
+    cursor:pointer;
 }
 
+/* RADIO */
 .opcion input{
     width:18px;
     height:18px;
+    flex-shrink:0;
+}
+
+/* TEXTO */
+.opcion span{
+    font-size:16px;
 }
