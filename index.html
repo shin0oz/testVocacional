@@ -1,12 +1,13 @@
-<!DOCTYPE html> 
-<html> 
-<head> 
+<!DOCTYPE html>
+<html>
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TEST VOCACIONAL</title> 
+<title>TEST VOCACIONAL</title>
 <link rel="stylesheet" href="css/estilo.css">
-</head> 
+</head>
 <body>
+
 <header>
     <img src="TecNM_logo.png" class="logo-izq">
     <div class="texto-header">
@@ -18,6 +19,7 @@
 
 <div class="main">
 
+  <!-- PANTALLA 1: Registro -->
   <div id="registro" class="card">
     <label>Nombre completo</label>
     <input type="text" id="nombre">
@@ -26,6 +28,7 @@
     <button onclick="iniciarTest()">Comenzar Test</button>
   </div>
 
+  <!-- PANTALLA 2: Modalidad -->
   <div id="modalidad" style="display:none">
     <div class="card modalidad">
       <h2 class="tituloModalidad">Elige tu modalidad</h2>
@@ -34,6 +37,7 @@
     </div>
   </div>
 
+  <!-- PANTALLA 3: Test -->
   <div id="test" style="display:none">
     <div class="card">
       <div class="barra">
@@ -46,15 +50,88 @@
 </div>
 
 <script>
-  function iniciarTest() {
-    var nombre = document.getElementById("nombre").value.trim();
-    var edad = document.getElementById("edad").value.trim();
+  var nombreAlumno = "";
+  var preguntaActual = 0;
+  var puntajes = [0, 0, 0, 0];
 
-    if (nombre === "" || edad === "") {
+  var carreras = [
+    {
+      nombre: "Ingeniería Industrial",
+      img: "industrial.jpg",
+      desc: "Optimiza procesos productivos y mejora la eficiencia en empresas manufactureras y de servicios."
+    },
+    {
+      nombre: "Ingeniería Química",
+      img: "quimica.jpg",
+      desc: "Diseña y opera procesos que transforman materias primas en productos útiles mediante reacciones químicas."
+    },
+    {
+      nombre: "Ingeniería en Sistemas Computacionales",
+      img: "sistemas.png",
+      desc: "Desarrolla software, sistemas y soluciones tecnológicas para automatizar y mejorar procesos."
+    },
+    {
+      nombre: "Administración",
+      img: "administracion.png",
+      desc: "Planifica, organiza y dirige recursos humanos y financieros para alcanzar los objetivos de una organización."
+    }
+  ];
+
+  var preguntas = [
+    {
+      texto: "¿Qué actividad disfrutas más?",
+      opciones: [
+        { texto: "Organizar y mejorar procesos",      pts: [3, 0, 1, 2] },
+        { texto: "Experimentos y laboratorio",         pts: [1, 3, 0, 0] },
+        { texto: "Programar o usar computadoras",      pts: [0, 0, 3, 1] },
+        { texto: "Liderar equipos y proyectos",        pts: [1, 0, 0, 3] }
+      ]
+    },
+    {
+      texto: "¿En qué área te imaginas trabajando?",
+      opciones: [
+        { texto: "Fábrica o planta de producción",    pts: [3, 1, 0, 0] },
+        { texto: "Laboratorio de investigación",       pts: [0, 3, 0, 0] },
+        { texto: "Empresa de tecnología",              pts: [0, 0, 3, 1] },
+        { texto: "Empresa u oficina de negocios",      pts: [0, 0, 0, 3] }
+      ]
+    },
+    {
+      texto: "¿Qué materia te gusta más?",
+      opciones: [
+        { texto: "Matemáticas y física",               pts: [3, 2, 2, 0] },
+        { texto: "Química y biología",                 pts: [1, 3, 0, 0] },
+        { texto: "Computación",                        pts: [0, 0, 3, 1] },
+        { texto: "Economía y contabilidad",            pts: [0, 0, 0, 3] }
+      ]
+    },
+    {
+      texto: "¿Qué problema te gustaría resolver?",
+      opciones: [
+        { texto: "Reducir desperdicios en una fábrica",       pts: [3, 0, 1, 1] },
+        { texto: "Crear nuevos materiales o medicamentos",    pts: [0, 3, 0, 0] },
+        { texto: "Desarrollar una aplicación o sistema",      pts: [0, 0, 3, 0] },
+        { texto: "Mejorar las ventas de una empresa",         pts: [0, 0, 0, 3] }
+      ]
+    },
+    {
+      texto: "¿Cómo prefieres trabajar?",
+      opciones: [
+        { texto: "En planta, supervisando producción",        pts: [3, 1, 0, 0] },
+        { texto: "Analizando muestras en laboratorio",        pts: [0, 3, 0, 0] },
+        { texto: "Frente a la computadora programando",       pts: [0, 0, 3, 0] },
+        { texto: "Tomando decisiones en equipo",              pts: [0, 0, 0, 3] }
+      ]
+    }
+  ];
+
+  function iniciarTest() {
+    nombreAlumno = document.getElementById("nombre").value.trim();
+    var edad = document.getElementById("edad").value.trim();
+    if (nombreAlumno === "" || edad === "") {
       alert("Por favor completa tu nombre y edad.");
       return;
     }
-
     document.getElementById("registro").style.display = "none";
     document.getElementById("modalidad").style.display = "block";
   }
@@ -62,61 +139,55 @@
   function seleccionarModalidad(tipo) {
     document.getElementById("modalidad").style.display = "none";
     document.getElementById("test").style.display = "block";
-
     preguntaActual = 0;
+    puntajes = [0, 0, 0, 0];
     mostrarPregunta();
   }
-
-  var preguntas = [
-    {
-      texto: "¿Qué actividad disfrutas más?",
-      opciones: ["Resolver problemas matemáticos", "Diseñar o crear cosas", "Ayudar a otras personas", "Investigar y leer"]
-    },
-    {
-      texto: "¿En qué ambiente te gustaría trabajar?",
-      opciones: ["Oficina / computadora", "Laboratorio", "Al aire libre", "Con personas directamente"]
-    },
-    {
-      texto: "¿Qué materia te gusta más en la escuela?",
-      opciones: ["Matemáticas / Física", "Biología / Química", "Historia / Literatura", "Arte / Música"]
-    }
-  ];
-
-  var preguntaActual = 0;
-  var respuestas = [];
 
   function mostrarPregunta() {
     if (preguntaActual >= preguntas.length) {
       mostrarResultado();
       return;
     }
-
     var p = preguntas[preguntaActual];
     var porcentaje = Math.round((preguntaActual / preguntas.length) * 100);
     document.getElementById("progreso").style.width = porcentaje + "%";
 
-    var html = "<h3>" + (preguntaActual + 1) + ". " + p.texto + "</h3>";
+    var html = "<h3>Pregunta " + (preguntaActual + 1) + " de " + preguntas.length + "</h3>";
+    html += "<p>" + p.texto + "</p>";
     p.opciones.forEach(function(op, i) {
-      html += '<button onclick="responder(' + i + ')">' + op + '</button>';
+      html += '<button onclick="responder(' + i + ')">' + op.texto + '</button>';
     });
-
     document.getElementById("contenedorPreguntas").innerHTML = html;
   }
 
   function responder(indice) {
-    respuestas.push(indice);
+    var pts = preguntas[preguntaActual].opciones[indice].pts;
+    for (var i = 0; i < 4; i++) {
+      puntajes[i] += pts[i];
+    }
     preguntaActual++;
     mostrarPregunta();
   }
 
   function mostrarResultado() {
     document.getElementById("progreso").style.width = "100%";
-    document.getElementById("contenedorPreguntas").innerHTML =
-      "<h2>¡Test completado!</h2>" +
-      "<p>Gracias, <strong>" + document.getElementById("nombre").value + "</strong>.</p>" +
-      "<p>Tus respuestas han sido registradas.</p>";
+    var ranking = [0, 1, 2, 3].sort(function(a, b) {
+      return puntajes[b] - puntajes[a];
+    });
+    var top1 = carreras[ranking[0]];
+    var top2 = carreras[ranking[1]];
+    var top3 = carreras[ranking[2]];
+
+    var params = new URLSearchParams({
+      nombre: nombreAlumno,
+      c1: top1.nombre, img1: top1.img, d1: top1.desc,
+      c2: top2.nombre, img2: top2.img, d2: top2.desc,
+      c3: top3.nombre, img3: top3.img, d3: top3.desc
+    });
+    window.location.href = "resultado.html?" + params.toString();
   }
 </script>
 
-</body> 
+</body>
 </html>
