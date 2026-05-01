@@ -6,9 +6,7 @@
 <title>TEST VOCACIONAL</title> 
 <link rel="stylesheet" href="css/estilo.css">
 </head> 
-
 <body>
-
 <header>
     <img src="TecNM_logo.png" class="logo-izq">
     <div class="texto-header">
@@ -20,34 +18,104 @@
 
 <div class="main">
 
-<div id="registro" class="card">
-<label>Nombre completo</label>
-<input type="text" id="nombre">
+  <div id="registro" class="card">
+    <label>Nombre completo</label>
+    <input type="text" id="nombre">
+    <label>Edad</label>
+    <input type="number" id="edad">
+    <button onclick="iniciarTest()">Comenzar Test</button>
+  </div>
 
-<label>Edad</label>
-<input type="number" id="edad">
-
-<button onclick="iniciarTest()">Comenzar Test</button>
-</div>
-
-<div id="modalidad" style="display:none">
+  <div id="modalidad" style="display:none">
     <div class="card modalidad">
-        <h2 class="tituloModalidad">Elige tu modalidad</h2>
-        <button onclick="seleccionarModalidad('linea')">En línea</button>
-        <button onclick="seleccionarModalidad('presencial')">Presencial</button>
+      <h2 class="tituloModalidad">Elige tu modalidad</h2>
+      <button onclick="seleccionarModalidad('linea')">En línea</button>
+      <button onclick="seleccionarModalidad('presencial')">Presencial</button>
     </div>
-</div>
+  </div>
 
-<div id="test" style="display:none">
+  <div id="test" style="display:none">
     <div class="card">
-        <div class="barra">
-            <div id="progreso"></div>
-        </div>
-        <div id="contenedorPreguntas"></div>
+      <div class="barra">
+        <div id="progreso"></div>
+      </div>
+      <div id="contenedorPreguntas"></div>
     </div>
+  </div>
+
 </div>
 
 <script>
+  function iniciarTest() {
+    var nombre = document.getElementById("nombre").value.trim();
+    var edad = document.getElementById("edad").value.trim();
+
+    if (nombre === "" || edad === "") {
+      alert("Por favor completa tu nombre y edad.");
+      return;
+    }
+
+    document.getElementById("registro").style.display = "none";
+    document.getElementById("modalidad").style.display = "block";
+  }
+
+  function seleccionarModalidad(tipo) {
+    document.getElementById("modalidad").style.display = "none";
+    document.getElementById("test").style.display = "block";
+
+    preguntaActual = 0;
+    mostrarPregunta();
+  }
+
+  var preguntas = [
+    {
+      texto: "¿Qué actividad disfrutas más?",
+      opciones: ["Resolver problemas matemáticos", "Diseñar o crear cosas", "Ayudar a otras personas", "Investigar y leer"]
+    },
+    {
+      texto: "¿En qué ambiente te gustaría trabajar?",
+      opciones: ["Oficina / computadora", "Laboratorio", "Al aire libre", "Con personas directamente"]
+    },
+    {
+      texto: "¿Qué materia te gusta más en la escuela?",
+      opciones: ["Matemáticas / Física", "Biología / Química", "Historia / Literatura", "Arte / Música"]
+    }
+  ];
+
+  var preguntaActual = 0;
+  var respuestas = [];
+
+  function mostrarPregunta() {
+    if (preguntaActual >= preguntas.length) {
+      mostrarResultado();
+      return;
+    }
+
+    var p = preguntas[preguntaActual];
+    var porcentaje = Math.round((preguntaActual / preguntas.length) * 100);
+    document.getElementById("progreso").style.width = porcentaje + "%";
+
+    var html = "<h3>" + (preguntaActual + 1) + ". " + p.texto + "</h3>";
+    p.opciones.forEach(function(op, i) {
+      html += '<button onclick="responder(' + i + ')">' + op + '</button>';
+    });
+
+    document.getElementById("contenedorPreguntas").innerHTML = html;
+  }
+
+  function responder(indice) {
+    respuestas.push(indice);
+    preguntaActual++;
+    mostrarPregunta();
+  }
+
+  function mostrarResultado() {
+    document.getElementById("progreso").style.width = "100%";
+    document.getElementById("contenedorPreguntas").innerHTML =
+      "<h2>¡Test completado!</h2>" +
+      "<p>Gracias, <strong>" + document.getElementById("nombre").value + "</strong>.</p>" +
+      "<p>Tus respuestas han sido registradas.</p>";
+  }
 </script>
 
 </body> 
