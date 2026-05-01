@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Resultado</title>
+
+<link rel="stylesheet" href="css/resultado.css">
+
+</head>
+
+<body>
+
+<header>
+    <img src="TecNM_logo.png" class="logo-izq">
+
+    <div class="texto-header">
+        <h2>SII SISTEMA INTEGRAL DE INFORMACIÓN</h2>
+        <h1>TecNM CAMPUS ATITALAQUIA</h1>
+    </div>
+
+    <img src="imgEscudo.png" class="logo-der">
+</header>
+
+<div class="main">
+
+<div class="contenedorResultado">
+
+   <div class="contenedorResultado">
+
+<div class="titulo">
+<h1>Resultado del Test Vocacional</h1>
+</div>
+
+<h3 id="nombreAlumno"></h3>
+
+<div class="tarjetaCarrera">
+<h2 id="c1"></h2>
+<img id="img1" class="imagenCarrera">
+<p id="d1"></p>
+</div>
+
+<div class="tarjetaCarrera">
+<h2 id="c2"></h2>
+<img id="img2" class="imagenCarrera">
+<p id="d2"></p>
+</div>
+
+<div class="tarjetaCarrera">
+<h2 id="c3"></h2>
+<img id="img3" class="imagenCarrera">
+<p id="d3"></p>
+</div>
+
+<button onclick="volver()">Volver al Test</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+let p = new URLSearchParams(window.location.search);
+
+document.getElementById("nombreAlumno").innerText = "Alumno: " + p.get("nombre");
+
+document.getElementById("c1").innerText = "🥇 " + p.get("c1");
+document.getElementById("img1").src = p.get("img1");
+document.getElementById("d1").innerText = p.get("d1");
+
+document.getElementById("c2").innerText = "🥈 " + p.get("c2");
+document.getElementById("img2").src = p.get("img2");
+document.getElementById("d2").innerText = p.get("d2");
+
+document.getElementById("c3").innerText = "🥉 " + p.get("c3");
+document.getElementById("img3").src = p.get("img3");
+document.getElementById("d3").innerText = p.get("d3");
+
+function volver(){
+window.location.href="index.html";
+}
+
+</script>
+
+</body>
+</html>
