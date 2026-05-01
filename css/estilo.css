@@ -96,8 +96,14 @@ button{
 .opcion{
     display:flex;
     align-items:center;
-    gap:8px;
-    margin:8px 0;
+    gap:10px;
+    margin:10px 0;
+    font-size:16px;
+}
+
+.opcion input{
+    width:18px;
+    height:18px;
 }
 
 /* BARRA */
