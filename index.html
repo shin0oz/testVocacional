@@ -5,404 +5,289 @@
 <title>TEST VOCACIONAL</title> 
 <meta charset="utf-8" />
 <link rel="stylesheet" href="css/estilo.css" />
-<style>
-  /* ── RESET & BASE ─────────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background: #b0bec5;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* ── HEADER ───────────────────────────────────────── */
-  header {
-    background: #1a2e5a;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 14px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  header img { height: 44px; width: auto; }
-
-  .texto-header {
-    flex: 1;
-    text-align: center;
-    padding: 0 8px;
-  }
-
-  .texto-header h2 {
-    font-size: clamp(9px, 2.4vw, 13px);
-    font-weight: 500;
-    letter-spacing: .3px;
-    opacity: .9;
-  }
-
-  .texto-header h1 {
-    font-size: clamp(12px, 3.5vw, 18px);
-    font-weight: 700;
-    letter-spacing: .5px;
-  }
-
-  /* ── MAIN ─────────────────────────────────────────── */
-  .main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 16px;
-  }
-
-  /* ── CARD ─────────────────────────────────────────── */
-  .card {
-    background: white;
-    border-radius: 18px;
-    padding: 28px 22px 24px;
-    width: 100%;
-    max-width: 420px;
-    box-shadow: 0 8px 30px rgba(0,0,0,.15);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    animation: fadeUp .35s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── INPUTS ───────────────────────────────────────── */
-  .card label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 2px;
-  }
-
-  .card input {
-    width: 100%;
-    padding: 13px 16px;
-    border: 1.5px solid #d1d5db;
-    border-radius: 12px;
-    font-size: 15px;
-    color: #111;
-    outline: none;
-    transition: border-color .2s;
-    -webkit-appearance: none;
-  }
-
-  .card input:focus { border-color: #1a2e5a; }
-
-  /* ── BOTONES PRIMARIOS ────────────────────────────── */
-  .card button,
-  button.btn-primary {
-    width: 100%;
-    padding: 15px;
-    background: #6d8aad;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background .2s, transform .1s;
-    -webkit-tap-highlight-color: transparent;
-    margin-top: 4px;
-  }
-
-  .card button:active { background: #4a6a90; transform: scale(.97); }
-
-  /* ── MODALIDAD ────────────────────────────────────── */
-  .modalidad {
-    gap: 14px;
-    text-align: center;
-  }
-
-  .tituloModalidad {
-    font-size: 20px;
-    font-weight: 700;
-    color: #1a2e5a;
-  }
-
-  /* ── BARRA DE PROGRESO ───────────────────────────── */
-  .barra {
-    width: 100%;
-    height: 8px;
-    background: #e5e7eb;
-    border-radius: 99px;
-    overflow: hidden;
-  }
-
-  #progreso {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #1a2e5a, #6d8aad);
-    border-radius: 99px;
-    transition: width .4s ease;
-  }
-
-  /* ── PREGUNTA ─────────────────────────────────────── */
-  .pregunta-num {
-    font-size: 12px;
-    font-weight: 700;
-    color: #6d8aad;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .pregunta-texto {
-    font-size: 17px;
-    font-weight: 700;
-    color: #111827;
-    line-height: 1.4;
-  }
-
-  /* ── OPCIONES SÍ/NO ──────────────────────────────── */
-  .opciones-sino {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 4px;
-  }
-
-  .opcion-sino {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px;
-    border: 2px solid #e5e7eb;
-    border-radius: 14px;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 600;
-    color: #374151;
-    transition: all .2s;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .opcion-sino input { display: none; }
-
-  .opcion-sino.seleccionada {
-    border-color: #1a2e5a;
-    background: #eef2f9;
-    color: #1a2e5a;
-  }
-
-  .opcion-sino:active { transform: scale(.96); }
-
-  /* ── BTN SIGUIENTE ───────────────────────────────── */
-  .btn-siguiente {
-    width: 100%;
-    padding: 15px;
-    background: #1a2e5a;
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background .2s, transform .1s;
-    -webkit-tap-highlight-color: transparent;
-    margin-top: 6px;
-  }
-
-  .btn-siguiente:active { background: #0f1f3d; transform: scale(.97); }
-</style>
 </head> 
 
 <body>
 
 <header>
-  <img src="TecNM_logo.png" class="logo-izq">
-  <div class="texto-header">
-    <h2>SII SISTEMA INTEGRAL DE INFORMACIÓN</h2>
-    <h1>TecNM CAMPUS ATITALAQUIA</h1>
-  </div>
-  <img src="imgEscudo.png" class="logo-der">
+    <img src="TecNM_logo.png" class="logo-izq">
+    <div class="texto-header">
+        <h2>SII SISTEMA INTEGRAL DE INFORMACIÓN</h2>
+        <h1>TecNM CAMPUS ATITALAQUIA</h1>
+    </div>
+    <img src="imgEscudo.png" class="logo-der">
 </header>
 
 <div class="main">
 
-  <!-- PANTALLA 1: Registro -->
-  <div id="registro" class="card">
-    <label>Nombre completo</label>
-    <input type="text" id="nombre" placeholder="Ej. Juan Pérez López" autocomplete="name">
-    <label>Edad</label>
-    <input type="number" id="edad" placeholder="18 - 45" inputmode="numeric">
-    <button onclick="iniciarTest()">Comenzar Test</button>
-  </div>
+<div id="registro" class="card">
+<label>Nombre completo</label>
+<input type="text" id="nombre">
 
-  <!-- PANTALLA 2: Modalidad -->
-  <div id="modalidad" style="display:none">
+<label>Edad</label>
+<input type="number" id="edad">
+
+<button onclick="iniciarTest()">Comenzar Test</button>
+</div>
+
+<div id="modalidad" style="display:none">
     <div class="card modalidad">
-      <h2 class="tituloModalidad">Elige tu modalidad</h2>
-      <button onclick="seleccionarModalidad('linea')">🖥️ En línea</button>
-      <button onclick="seleccionarModalidad('presencial')">🏫 Presencial</button>
+        <h2 class="tituloModalidad">Elige tu modalidad</h2>
+        <button onclick="seleccionarModalidad('linea')">En línea</button>
+        <button onclick="seleccionarModalidad('presencial')">Presencial</button>
     </div>
-  </div>
+</div>
 
-  <!-- PANTALLA 3: Test -->
-  <div id="test" style="display:none">
+<div id="test" style="display:none ">
     <div class="card">
-      <div class="barra"><div id="progreso"></div></div>
-      <div id="contenedorPreguntas"></div>
+        <div class="barra">
+            <div id="progreso"></div>
+        </div>
+        <div id="contenedorPreguntas"></div>
     </div>
-  </div>
-
 </div>
 
 <script>
+
 let puntajes = {
-  sistemas: 0, industrial: 0, gestion: 0,
-  mecatronica: 0, quimica: 0, administracion: 0
+    sistemas: 0,
+    industrial: 0,
+    gestion: 0,
+    mecatronica: 0,
+    quimica: 0,
+    administracion: 0
 };
 
 let tipoModalidad = "";
 let paso = 0;
 let ordenPreguntas = [];
 
-function mezclar(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
+function mezclar(array){
+    for(let i = array.length -1; i > 0; i--){
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
-function iniciarTest() {
-  let nombre = document.getElementById("nombre").value.trim();
-  let edad = document.getElementById("edad").value;
+function iniciarTest(){
 
-  if (nombre == "") { alert("Escribe tu nombre completo"); return; }
-  if (nombre.split(" ").length < 2) { alert("Debes escribir nombre y apellido"); return; }
-  if (nombre === nombre.toUpperCase()) { alert("No escribas todo en mayúsculas"); return; }
+let nombre=document.getElementById("nombre").value.trim();
+let edad=document.getElementById("edad").value;
 
-  edad = parseInt(edad);
-  if (isNaN(edad) || edad <= 17 || edad > 45) { alert("La edad debe estar entre 18 y 45"); return; }
-
-  document.getElementById("registro").style.display = "none";
-  document.getElementById("modalidad").style.display = "block";
+if(nombre==""){
+alert("Escribe tu nombre completo");
+return;
 }
 
-function seleccionarModalidad(tipo) {
-  tipoModalidad = tipo;
-  document.getElementById("modalidad").style.display = "none";
-  document.getElementById("test").style.display = "block";
-
-  paso = 0;
-  ordenPreguntas = tipoModalidad == "linea" ? [0,1,2,3,4,5] : [0,1,2,3];
-  mezclar(ordenPreguntas);
-  mostrarPregunta();
+if(nombre.split(" ").length < 2){
+alert("Debes escribir nombre y apellido");
+return;
 }
 
-const preguntasLinea = [
-  "¿Te gusta usar computadoras frecuentemente?",
-  "¿Te gusta resolver problemas usando lógica?",
-  "¿Te gustaría crear programas o aplicaciones?",
-  "¿Te gusta analizar y mejorar procesos paso a paso?",
-  "¿Te gusta organizar actividades o planear cosas?",
-  "¿Te gusta trabajar con números o analizar datos?"
+if(nombre===nombre.toUpperCase()){
+alert("No escribas todo en mayúsculas");
+return;
+}
+
+edad=parseInt(edad);
+
+if(isNaN(edad) || edad<=17 || edad>45){
+alert("Edad entre 18 y 45");
+return;
+}
+
+document.getElementById("registro").style.display="none";
+document.getElementById("modalidad").style.display="block";
+}
+
+function seleccionarModalidad(tipo){
+
+tipoModalidad = tipo;
+
+document.getElementById("modalidad").style.display="none";
+document.getElementById("test").style.display="block";
+document.querySelector(".barra").style.display="block";
+
+paso = 0;
+
+if(tipoModalidad=="linea"){
+    ordenPreguntas = [0,1,2,3,4,5];
+}else{
+    ordenPreguntas = [0,1,2,3];
+}
+
+mezclar(ordenPreguntas);
+
+mostrarPregunta();
+}
+
+function mostrarPregunta(){
+
+let contenedor = document.getElementById("contenedorPreguntas");
+contenedor.innerHTML = "";
+
+let actual = ordenPreguntas[paso];
+let pregunta = "";
+
+if(tipoModalidad=="linea"){
+
+if(actual==0){
+pregunta="¿Te gusta usar computadoras frecuentemente?";
+}
+else if(actual==1){
+pregunta="¿Te gusta resolver problemas usando lógica?";
+}
+else if(actual==2){
+pregunta="¿Te gustaría crear programas o aplicaciones?";
+}
+else if(actual==3){
+pregunta="¿Te gusta analizar y mejorar procesos paso a paso?";
+}
+else if(actual==4){
+pregunta="¿Te gusta organizar actividades o planear cosas?";
+}
+else if(actual==5){
+pregunta="¿Te gusta trabajar con números o analizar datos?";
+}
+else{
+calcularResultado();
+return;
+}
+
+}
+
+else{
+
+if(actual==0){
+pregunta="¿Te interesa más la tecnología o los procesos físicos?";
+}
+else if(actual==1){
+pregunta="¿Te gustaría programar o diseñar sistemas?";
+}
+else if(actual==2){
+pregunta="¿Te interesa la electrónica o automatización?";
+}
+else if(actual==3){
+pregunta="¿Te gusta trabajar en laboratorio o con químicos?";
+}
+else{
+calcularResultado();
+return;
+}
+
+}
+
+contenedor.innerHTML = `
+<div class="pregunta">
+<p>${pregunta}</p>
+
+<label class="opcion">
+<input type="radio" name="resp" value="1"> Si
+</label>
+
+<label class="opcion">
+<input type="radio" name="resp" value="0"> No
+</label>
+</div>
+
+<button onclick="siguiente()">Siguiente</button>
+`;
+
+actualizarBarra();
+}
+
+function siguiente(){
+
+let r=document.querySelector('input[name="resp"]:checked');
+
+if(!r){
+alert("Responde la pregunta");
+return;
+}
+
+let valor = parseInt(r.value);
+let actual = ordenPreguntas[paso];
+
+if(tipoModalidad=="linea"){
+
+if(actual==0 && valor==1) puntajes.sistemas += 2;
+if(actual==1 && valor==1) puntajes.sistemas += 2;
+if(actual==2 && valor==1) puntajes.sistemas += 3;
+
+if(actual==3 && valor==1) puntajes.industrial += 3;
+if(actual==4 && valor==1) puntajes.gestion += 3;
+
+if(actual==5 && valor==1){
+    puntajes.industrial += 2;
+    puntajes.sistemas += 1;
+}
+}
+
+else{
+
+if(actual==0){
+    if(valor==1) puntajes.sistemas += 1;
+    else puntajes.industrial += 1;
+}
+
+if(actual==1){
+    if(valor==1) puntajes.sistemas += 2;
+    else puntajes.mecatronica += 1;
+}
+
+if(actual==2){
+    if(valor==1) puntajes.mecatronica += 2;
+    else puntajes.quimica += 2;
+}
+
+if(actual==3){
+    if(valor==1) puntajes.quimica += 2;
+    else puntajes.administracion += 2;
+}
+}
+
+paso++;
+
+if(paso >= ordenPreguntas.length){
+    calcularResultado();
+    return;
+}
+
+mostrarPregunta();
+}
+
+function actualizarBarra(){
+let total = ordenPreguntas.length;
+let porcentaje = (paso/total)*100;
+document.getElementById("progreso").style.width = porcentaje+"%";
+}
+
+function calcularResultado(){
+
+let lista = [
+{nombre:"Ingenieria en Sistemas Computacionales", key:"sistemas", img:"sistemas.png", desc:"Tienes habilidades en lógica y programación."},
+{nombre:"Ingenieria Industrial", key:"industrial", img:"industrial.jpg", desc:"Te gusta optimizar procesos."},
+{nombre:"Ingenieria en Gestion Empresarial", key:"gestion", img:"gestion.jpg", desc:"Te gusta organizar actividades."},
+{nombre:"Ingenieria Mecatronica", key:"mecatronica", img:"mecatronica.jpg", desc:"Te interesa la automatización."},
+{nombre:"Ingenieria Quimica", key:"quimica", img:"quimica.jpg", desc:"Te interesan los procesos químicos."},
+{nombre:"Ingenieria en Administracion", key:"administracion", img:"administracion.png", desc:"Te gusta gestionar proyectos."}
 ];
 
-const preguntasPresencial = [
-  "¿Te interesa más la tecnología o los procesos físicos?",
-  "¿Te gustaría programar o diseñar sistemas?",
-  "¿Te interesa la electrónica o automatización?",
-  "¿Te gusta trabajar en laboratorio o con químicos?"
-];
+lista.sort((a,b)=> puntajes[b.key] - puntajes[a.key]);
 
-function mostrarPregunta() {
-  let contenedor = document.getElementById("contenedorPreguntas");
+let top1 = lista[0];
+let top2 = lista[1];
+let top3 = lista[2];
 
-  let lista = tipoModalidad == "linea" ? preguntasLinea : preguntasPresencial;
-  let actual = ordenPreguntas[paso];
+let nombre=document.getElementById("nombre").value;
 
-  if (paso >= ordenPreguntas.length) { calcularResultado(); return; }
-
-  let total = ordenPreguntas.length;
-  let porcentaje = (paso / total) * 100;
-  document.getElementById("progreso").style.width = porcentaje + "%";
-
-  contenedor.innerHTML = `
-    <p class="pregunta-num">Pregunta ${paso + 1} de ${total}</p>
-    <p class="pregunta-texto">${lista[actual]}</p>
-    <div class="opciones-sino">
-      <label class="opcion-sino" id="opt-si" onclick="seleccionarOpcion(this, 'si')">
-        <input type="radio" name="resp" value="1"> ✅ Sí
-      </label>
-      <label class="opcion-sino" id="opt-no" onclick="seleccionarOpcion(this, 'no')">
-        <input type="radio" name="resp" value="0"> ❌ No
-      </label>
-    </div>
-    <button class="btn-siguiente" onclick="siguiente()">Siguiente →</button>
-  `;
+window.location.href=`resultado.html?
+nombre=${nombre}
+&c1=${top1.nombre}&img1=${top1.img}&d1=${top1.desc}
+&c2=${top2.nombre}&img2=${top2.img}&d2=${top2.desc}
+&c3=${top3.nombre}&img3=${top3.img}&d3=${top3.desc}`;
 }
 
-function seleccionarOpcion(el, val) {
-  document.querySelectorAll('.opcion-sino').forEach(o => o.classList.remove('seleccionada'));
-  el.classList.add('seleccionada');
-  el.querySelector('input').checked = true;
-}
-
-function siguiente() {
-  let r = document.querySelector('input[name="resp"]:checked');
-  if (!r) { alert("Responde la pregunta"); return; }
-
-  let valor = parseInt(r.value);
-  let actual = ordenPreguntas[paso];
-
-  if (tipoModalidad == "linea") {
-    if (actual == 0 && valor == 1) puntajes.sistemas += 2;
-    if (actual == 1 && valor == 1) puntajes.sistemas += 2;
-    if (actual == 2 && valor == 1) puntajes.sistemas += 3;
-    if (actual == 3 && valor == 1) puntajes.industrial += 3;
-    if (actual == 4 && valor == 1) puntajes.gestion += 3;
-    if (actual == 5 && valor == 1) { puntajes.industrial += 2; puntajes.sistemas += 1; }
-  } else {
-    if (actual == 0) { valor == 1 ? puntajes.sistemas += 1 : puntajes.industrial += 1; }
-    if (actual == 1) { valor == 1 ? puntajes.sistemas += 2 : puntajes.mecatronica += 1; }
-    if (actual == 2) { valor == 1 ? puntajes.mecatronica += 2 : puntajes.quimica += 2; }
-    if (actual == 3) { valor == 1 ? puntajes.quimica += 2 : puntajes.administracion += 2; }
-  }
-
-  paso++;
-  if (paso >= ordenPreguntas.length) { calcularResultado(); return; }
-  mostrarPregunta();
-}
-
-function calcularResultado() {
-  document.getElementById("progreso").style.width = "100%";
-
-  let lista = [
-    { nombre: "Ingenieria en Sistemas Computacionales", key: "sistemas",       img: "sistemas.png",       desc: "Tienes habilidades en lógica y programación." },
-    { nombre: "Ingenieria Industrial",                  key: "industrial",     img: "industrial.jpg",     desc: "Te gusta optimizar procesos." },
-    { nombre: "Ingenieria en Gestion Empresarial",      key: "gestion",        img: "gestion.jpg",        desc: "Te gusta organizar actividades." },
-    { nombre: "Ingenieria Mecatronica",                 key: "mecatronica",    img: "mecatronica.jpg",    desc: "Te interesa la automatización." },
-    { nombre: "Ingenieria Quimica",                     key: "quimica",        img: "quimica.jpg",        desc: "Te interesan los procesos químicos." },
-    { nombre: "Ingenieria en Administracion",           key: "administracion", img: "administracion.png", desc: "Te gusta gestionar proyectos." }
-  ];
-
-  lista.sort((a, b) => puntajes[b.key] - puntajes[a.key]);
-
-  let nombre = document.getElementById("nombre").value;
-  let p = new URLSearchParams({
-    nombre,
-    c1: lista[0].nombre, img1: lista[0].img, d1: lista[0].desc,
-    c2: lista[1].nombre, img2: lista[1].img, d2: lista[1].desc,
-    c3: lista[2].nombre, img3: lista[2].img, d3: lista[2].desc
-  });
-
-  window.location.href = "resultado.html?" + p.toString();
-}
 </script>
-
 </body> 
 </html>
