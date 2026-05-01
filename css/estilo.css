@@ -1,66 +1,69 @@
 body{
-    font-family:'Lucida Sans','Lucida Sans Regular','Lucida Grande','Lucida Sans Unicode',Geneva,Verdana,sans-serif,Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Arial, sans-serif;
     margin:0;
-    height:100vh;
     background: radial-gradient(circle,#9bb5d8d2,#466796d1);
 }
 
-.contenedor{
-    width:90%;
-    max-width:400px;
-    max-height:500px; 
-    overflow:auto;   
-    
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0px 0px 15px rgba(0,0,0,0.3);
-}
-
+/* HEADER */
 header{
     background-color:#1f3b6d;
     color:white;
     display:flex;
+    flex-wrap:wrap;
     align-items:center;
     justify-content:center;
-    padding:10px 20px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.2);
-    position:relative;
-}
-
-.main{
-    height: calc(100vh - 80px);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.texto-header{
     text-align:center;
-}
-
-.texto-header h2{
-    margin:0;
-    font-size:14px;
-}
-
-.texto-header h1{
-    margin:3px 0 0 0;
-    font-size:18px;
+    padding:10px;
+    position:relative;
 }
 
 .logo-izq{
     width:60px;
     position:absolute;
-    left:15px;
+    left:10px;
 }
 
 .logo-der{
     width:60px;
     position:absolute;
-    right:15px;
+    right:10px;
 }
 
+.texto-header{
+    width:100%;
+}
+
+.texto-header h1{
+    font-size:18px;
+}
+
+.texto-header h2{
+    font-size:14px;
+}
+
+/* MAIN */
+.main{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+/* CARD */
+.card{
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+    width:100%;
+    max-width:400px;
+
+    display:flex;
+    flex-direction:column;
+}
+
+/* INPUT */
 input{
     width:100%;
     padding:10px;
@@ -68,74 +71,26 @@ input{
     border-radius:20px;
     border:1px solid #ccc;
     font-size:14px;
-    padding-left:12px;
-    outline:none;
-    transition:0.3s;
     box-sizing:border-box;
 }
 
-input:focus{
-    border-color:#4facfe;
-    box-shadow:0px 0px 5px rgba(79,172,254,0.6);
-}
-
+/* BOTÓN */
 button{
     background:#88A0BF;
     border:none;
-    padding:10px;
-    width:180px;
+    padding:12px;
+    width:100%;
     color:black;
-    font-size:15px;
+    font-size:16px;
     border-radius:25px;
     cursor:pointer;
-    margin-top:20px;
-    transition:all 0.3s ease;
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
+    margin-top:15px;
 }
 
-button:hover{
-    background:rgba(26,59,104,0.8);
-    color:white;
-    transform:scale(1.05);
-    box-shadow:0px 5px 15px rgba(0,0,0,0.3);
-}
-.card{
-    background:#ffffff;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
-    margin-top:20px;
-
-    width:100%;
-    max-width:400px;
-    min-width: 400px;
-    height:300px; 
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center; 
-}
-
-.modalidad{
-    text-align:center;
-}
-
-.tituloModalidad{
-    font-size:18px;
-    color:#0C2240;
-    margin-bottom:10px;
-}
-
-#contenedorPreguntas{
-    margin-top:10px;
-}
-
+/* PREGUNTAS */
 .pregunta p{
     font-size:16px;
     font-weight:bold;
-    color:#0C2240;
 }
 
 .opcion{
@@ -143,14 +98,9 @@ button:hover{
     align-items:center;
     gap:8px;
     margin:8px 0;
-    font-size:14px;
-    cursor:pointer;
 }
 
-.opcion input{
-    width:auto;
-}
-
+/* BARRA */
 .barra{
     width:100%;
     height:10px;
@@ -158,98 +108,34 @@ button:hover{
     border-radius:10px;
     margin-bottom:15px;
     overflow:hidden;
-    display:none; 
+    display:none;
 }
 
 #progreso{
     height:100%;
     width:0%;
     background:#4facfe;
-    transition:0.5s;
 }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
-}
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+/* IMÁGENES */
+img{
+    max-width:100%;
+    height:auto;
 }
 
-.main {
-    width: 100%;
-    padding: 10px;
-}
+/* CELULAR */
+@media (max-width:600px){
 
-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 10px;
-}
-
-.logo-izq, .logo-der {
-    width: 60px;
-}
-
-.texto-header {
-    width: 100%;
-}
-
-.texto-header h1 {
-    font-size: 18px;
-}
-
-.texto-header h2 {
-    font-size: 14px;
-}
-
-.card, .contenedorResultado {
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
-    padding: 15px;
-    box-sizing: border-box;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-.tarjetaCarrera {
-    margin-bottom: 20px;
-}
-
-@media (max-width: 600px) {
-
-    .logo-izq, .logo-der {
-        width: 50px;
+    .logo-izq, .logo-der{
+        width:45px;
     }
 
-    .texto-header h1 {
-        font-size: 16px;
+    .texto-header h1{
+        font-size:16px;
     }
 
-    .texto-header h2 {
-        font-size: 12px;
+    .texto-header h2{
+        font-size:12px;
     }
 
 }
